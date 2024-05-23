@@ -1,0 +1,119 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+p {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  gap: 30px;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 40px;
+  font-size: 24px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 24px;
+}
+
+.status {
+  color: rgb(5, 212, 5);
+}
+
+.status-p {
+  margin-bottom: 112px;
+}
+
+.status_bad {
+  color: red;
+}
+
+.button {
+  padding: 10px 110px;
+  margin-bottom: 120px;
+  font-size: 24px;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  background-color: #0094ff;
+}
+
+.limit {
+  margin-bottom: 15px;
+}
+
+.total {
+  margin-bottom: 35px;
+}
+
+.select {
+  margin-bottom: 50px;
+  padding: 10px 20px;
+  width: 100%;
+  font-size: 24px;
+}
+
+.button-reset {
+  padding: 10px 0;
+  font-size: 24px;
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+  background-color: red;
+  color: #fff;
+}
+
+label {
+  margin-bottom: 20px;
+}
+
+label,
+input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 48px;
+  box-sizing: border-box;
+  font-size: 24px;
+}
+
+input {
+  padding-left: 20px;
+  padding-right: 60px;
+}
+
+label::after {
+  content: attr(data-domain);
+  position: absolute;
+  top: 20%;
+  right: 5px;
+  font-family: arial, helvetica, sans-serif;
+  display: block;
+  color: rgb(0, 0, 0);
+}
