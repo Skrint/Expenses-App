@@ -17,13 +17,14 @@
 				<input class="js-input input" type="number" />
 			</label>
 			<select class="js-select select">
-				<option>Кафе и рестораны</option>
-				<option>Транспорт</option>
-				<option>Аптека</option>
-				<option>Развлечения</option>
+				<option value="Кафе и рестораны">Кафе и рестораны</option>
+				<option value="Транспорт">Транспорт</option>
+				<option value="Аптека">Аптека</option>
+				<option value="Развлечения">Развлечения</option>
 			</select>
 			<div>
-				<p class="limit"><b>Лимит:</b> <span class="js-limit"></span> руб.</p>
+				<p class="limit"><b>Лимит:</b> <span class="js-limit"></span> руб. <button class="js-button-modal"><img
+							src="./images/review.svg" alt="" role="presentation"></button></p>
 				<p class="total"><b>Сумма:</b> <span class="js-total"></span> руб.</p>
 				<p class="status-p"><b>Статус:</b> <span class="js-status status"></span></p>
 			</div>
@@ -33,6 +34,18 @@
 			<button class="js-button button">Добавить</button>
 			<h2 class="subtitle">История</h2>
 			<div class="js-history"></div>
+		</div>
+	</div>
+	<div class="modal">
+		<span class="close">×</span>
+		<div class="modal-header">
+			<h2>Новый лимит</h2>
+		</div>
+		<div class="modal-body">
+			<label class="label" data-domain="руб.">
+				<input class="js-input-limit input" type="number" />
+			</label>
+			<button class="js-button-limit button">Задать лимит</button>
 		</div>
 	</div>
 </body>
