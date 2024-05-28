@@ -18,25 +18,7 @@ const $closeModalWindow = document.querySelector('.close');
 const $buttonLimit = document.querySelector('.js-button-limit');
 const $inputLimit = document.querySelector('.js-input-limit');
 
-$buttonModal.addEventListener('click', function () {
-  $modalWindow.style.display = 'block';
-  $modalWindow.classList.add('modal-animation');
-  document.body.classList.add('modalBackdrop');
-});
-
-$closeModalWindow.addEventListener('click', function () {
-  $modalWindow.style.display = 'none';
-  $modalWindow.classList.remove('modal-animation');
-  document.body.style.backgroundColor = '#fff';
-  document.body.classList.remove('modalBackdrop');
-});
-
-$buttonLimit.addEventListener('click', () => {
-  LIMIT = $inputLimit.value;
-  init(expenses);
-});
-
-const expenses = [];
+const expenses = jsonToData(getExpensesData());
 
 init(expenses);
 
@@ -49,7 +31,25 @@ $button.addEventListener('click', () => {
 
   trackExpense(expense, $select);
   render(expenses);
+  setExpensesData(dataToJson(expenses));
+  console.log(expenses);
 });
+
+function dataToJson(data) {
+  return JSON.stringify(data);
+}
+
+function jsonToData(data) {
+  return JSON.parse(data);
+}
+
+function setExpensesData(data) {
+  localStorage.setItem('expenses', data);
+}
+
+function getExpensesData() {
+  return localStorage.getItem('expenses');
+}
 
 function resetList(expenses) {
   $buttonReset.addEventListener('click', () => {
@@ -127,3 +127,37 @@ function renderStatus(sum) {
     $status.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
   }
 }
+
+function modalStyles(display, backgroundColor, action) {
+  $modalWindow.style.display = display;
+  $modalWindow.classList[action]('modal-animation');
+  document.body.style.backgroundColor = backgroundColor;
+  document.body.classList[action]('modalBackdrop');
+}
+
+function openModal() {
+  $buttonModal.addEventListener('click', function () {
+    modalStyles('block', 'grey', 'add');
+    $buttonLimit.addEventListener('click', () => {
+      $status.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
+      modalStyles('none', '#fff', 'remove');
+    });
+  });
+}
+
+function closeModal() {
+  $closeModalWindow.addEventListener('click', () => {
+    modalStyles('none', '#fff', 'remove');
+  });
+}
+
+function setLimit() {
+  $buttonLimit.addEventListener('click', () => {
+    LIMIT = $inputLimit.value;
+    init(expenses);
+  });
+}
+
+openModal();
+closeModal();
+setLimit();
