@@ -26,7 +26,6 @@ init(expenses);
 
 $button.addEventListener('click', () => {
   const expense = getExpenseFromUser();
-
   if (!expense) {
     return;
   }
@@ -87,19 +86,21 @@ function init(expenses) {
   renderHistory(expenses);
   resetList(expenses);
   $limit.innerHTML = getLimitData();
-  if (expenses !== null && expenses !== undefined) {
-    calculateExpanses(expenses);
+  $total.innerHTML = calculateExpanses(expenses);
+  if ($total.innerHTML > $limit.innerHTML) {
+    $status.innerHTML = renderStatus($total.innerHTML);
+    $status.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
+  } else {
+    $status.innerHTML = renderStatus($total.innerHTML);
+    $status.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
   }
-  $status.innerHTML = STATUS_IN_LIMIT;
 }
 
 function calculateExpanses(expenses) {
   let sum = 0;
-  if (expenses !== null && expenses !== undefined) {
-    expenses.forEach((expense) => {
-      sum += expense.expense;
-    });
-  }
+  expenses.forEach((expense) => {
+    sum += expense.expense;
+  });
   return sum;
 }
 
@@ -111,9 +112,7 @@ function render(expenses) {
 }
 
 function trackExpense(expense, $select) {
-  if (expenses !== null && expenses !== undefined) {
-    expenses.push({ expense: expense, option: $select.value });
-  }
+  expenses.push({ expense: expense, option: $select.value });
 }
 
 function getExpenseFromUser() {
@@ -131,12 +130,9 @@ function clearInput() {
 
 function renderHistory(expenses) {
   let expensesListHTML = '';
-  if (expenses !== null && expenses !== undefined) {
-    expenses.forEach((expense) => {
-      expensesListHTML += `<li>${expense.expense} ${CURRENCY} - ${expense.option}</li>`;
-    });
-  }
-
+  expenses.forEach((expense) => {
+    expensesListHTML += `<li>${expense.expense} ${CURRENCY} - ${expense.option}</li>`;
+  });
   $history.innerHTML = `<ol>${expensesListHTML}</ol>`;
 }
 
@@ -153,6 +149,7 @@ function renderStatus(sum) {
     } ${CURRENCY})`;
     $status.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
   }
+  return $status.innerHTML;
 }
 
 function modalStyles(display, backgroundColor, action) {
@@ -166,7 +163,6 @@ function openModal() {
   $buttonModal.addEventListener('click', function () {
     modalStyles('block', 'grey', 'add');
     $buttonLimit.addEventListener('click', () => {
-      $status.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
       modalStyles('none', '#fff', 'remove');
     });
   });
