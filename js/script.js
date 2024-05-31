@@ -1,4 +1,5 @@
-let LIMIT = 5000;
+let LIMIT = getLimitData();
+LIMIT = LIMIT ? limitToData(LIMIT) : 5000;
 const CURRENCY = 'руб.';
 const STATUS_IN_LIMIT = 'Всё хорошо';
 const STATUS_OUT_OF_LIMIT = 'Всё плохо';
@@ -17,6 +18,8 @@ const $modalWindow = document.querySelector('.modal');
 const $closeModalWindow = document.querySelector('.close');
 const $buttonLimit = document.querySelector('.js-button-limit');
 const $inputLimit = document.querySelector('.js-input-limit');
+
+setLimitData(LIMIT);
 
 let expenses = getExpensesData();
 
